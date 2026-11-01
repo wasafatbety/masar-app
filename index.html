@@ -49,6 +49,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title> Masar Bus System  - المنظومة الذكية الموحدة للحافلات</title>
+ <!-- Google reCAPTCHA v3 Script for Masar Bus -->
+<script src="https://www.google.com/recaptcha/api.js?render=6LeBWwsuAAAAAM40h_-6izXzHckBWhHIWG_a9VIs"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -3016,5 +3018,22 @@ ${downloadUrl}
     });
   });
 </script>
+ // دالة التحقق من الـ reCAPTCHA لتطبيق الباصات
+function verifyBusRecaptcha(actionName, callback) {
+    if (typeof grecaptcha === 'undefined') {
+        callback();
+        return;
+    }
+
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LeBWwsuAAAAAM40h_-6izXzHckBWhHIWG_a9VIs', {action: actionName}).then(function(token) {
+            console.log('Bus reCAPTCHA Token generated for ' + actionName);
+            callback();
+        }).catch(err => {
+            console.error('reCAPTCHA error:', err);
+            callback();
+        });
+    });
+}
 </body>
 </html>
